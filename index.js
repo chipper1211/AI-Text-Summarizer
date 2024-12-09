@@ -1,10 +1,12 @@
 import express from 'express';
 import axios from 'axios';
+import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+dotenv.config();
 
 const app = express();
 const port = 3000;
@@ -14,8 +16,8 @@ app.set('views', join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-const bearertoekn = "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";
-const API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn";
+const bearertoekn = process.env.BEARER_TOKEN;
+const API_URL = process.env.API_URL;
 const headers = { Authorization: `Bearer ${bearertoekn}` };
 
 app.get('/', (req, res) => {
